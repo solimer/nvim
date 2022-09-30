@@ -104,17 +104,10 @@ return require('packer').startup({
     use { 'tpope/vim-repeat' }
     use { 'tpope/vim-speeddating' }
     use { 'dhruvasagar/vim-table-mode' }
-    use { 'mg979/vim-visual-multi', config = function()
-      vim.g.VM_leader = ";"
-      vim.g.VM_maps   = {  
-        ["Add Cursor Down"] = '\\z',   
-        ["Add Cursor Up"] = '\\x'  
-      }  
-    end
-    } 
-    use { 'junegunn/vim-easy-align' }
+    use { 'mg979/vim-visual-multi', config = function() vim.g.VM_leader = ";" end }
     use { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter' }
     use { 'nacro90/numb.nvim', config = "require('plugins.numb')" }
+    use { 'folke/todo-comments.nvim', config = "require('plugins.todo-comments')" }
     use { 'folke/zen-mode.nvim', config = "require('plugins.zen')", disable = not EcoVim.plugins.zen.enabled }
     use { 'folke/twilight.nvim', config = function() require("twilight").setup {} end,
       disable = not EcoVim.plugins.zen.enabled }
@@ -134,6 +127,7 @@ return require('packer').startup({
     use { 'kylechui/nvim-surround', config = function() require("nvim-surround").setup({}) end }
     use { 'sunjon/shade.nvim', config = function() require("shade").setup(); require("shade").toggle(); end }
     use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async', config = "require('plugins.nvim-ufo')" }
+    use { 'echasnovski/mini.nvim', config = function() require("mini.align").setup() end }
 
     -- Snippets & Language & Syntax
     use { 'windwp/nvim-autopairs', after = { 'nvim-treesitter', 'nvim-cmp' }, config = "require('plugins.autopairs')" }

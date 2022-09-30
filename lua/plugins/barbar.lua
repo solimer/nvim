@@ -1,5 +1,5 @@
 -- Set barbar's options
-require('bufferline').setup {
+require'bufferline'.setup {
   -- Enable/disable animations
   animation = true,
 
