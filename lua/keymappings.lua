@@ -30,10 +30,19 @@ keymap("n", "<C-s>", ":w<CR>", silent)
 keymap("n", "<Leader>w", "<CMD>lua vim.lsp.buf.format({ async = true })<CR> :w<CR>", silent)
 keymap("i", "<C-s>", "<ESC> :w<CR>", silent)
 
+-- log line
+keymap("n", "<Leader>l",
+  ":put =printf('console.log(''%s:'',  %s);', expand('<cword>'), expand('<cword>'))<CR> <CMD>lua vim.lsp.buf.format({ async = true })<CR>"
+  , silent)
+
+keymap("v", "<Leader>l",
+  ":put =printf('console.log(''%s:'',  %s);', expand('<cword>'), expand('<cword>'))<CR> <CMD>lua vim.lsp.buf.format({ async = true })<CR>"
+  , silent)
 -- Telescope
 keymap("n", "<C-p>", "<CMD>lua require('plugins.telescope').project_files()<CR>")
 keymap("n", "<Leader>ff", "<CMD>lua require('plugins.telescope').project_files()<CR>")
 keymap("n", "<Leader>fF", "<CMD>lua require('telescope.builtin').find_files()<CR>")
+keymap("n", "<Leader>fh", "<CMD>lua require('telescope.builtin').find_files{ no_ignore=true, hidden=true }<CR>")
 keymap("n", "<S-p>", "<CMD>lua require('plugins.telescope.pickers.multi-rg')()<CR>")
 keymap("n", "<Leader>sk", "<CMD>lua require('telescope.builtin').keymaps()<CR>")
 keymap("n", "<Leader>sb", "<CMD>lua require('telescope.builtin').buffers()<CR>")

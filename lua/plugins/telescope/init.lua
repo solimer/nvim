@@ -19,6 +19,7 @@ local git_icons = {
 
 require('telescope').setup {
   defaults = {
+    wrap_results      = true,
     vimgrep_arguments = {
       'rg',
       '--color=never',
@@ -78,7 +79,8 @@ local M = {}
 
 local delta_bcommits = previewers.new_termopen_previewer {
   get_command = function(entry)
-    return { 'git', '-c', 'core.pager=delta', '-c', 'delta.side-by-side=false', 'diff', entry.value .. '^!', '--', entry.current_file }
+    return { 'git', '-c', 'core.pager=delta', '-c', 'delta.side-by-side=false', 'diff', entry.value .. '^!', '--',
+      entry.current_file }
   end
 }
 
@@ -113,7 +115,7 @@ end
 -- Custom pickers
 
 M.edit_neovim = function()
-  builtin.git_files (
+  builtin.git_files(
     require('telescope.themes').get_dropdown({
       color_devicons   = true,
       cwd              = "~/.config/nvim",
@@ -140,11 +142,11 @@ M.project_files = function(opts)
 end
 
 M.command_history = function()
-  builtin.command_history (
+  builtin.command_history(
     require('telescope.themes').get_dropdown({
-      color_devicons   = true,
-      winblend         = 4,
-      layout_config    = {
+      color_devicons = true,
+      winblend       = 4,
+      layout_config  = {
         width = function(_, max_columns, _)
           return math.min(max_columns, 150)
         end,
