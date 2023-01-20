@@ -17,9 +17,8 @@ mason.setup {
 
 mason_lsp.setup {
   -- A list of servers to automatically install if they're not already installed
-  ensure_installed = { "bash-language-server", "css-lsp", "eslint-lsp", "graphql-language-service-cli", "html-lsp",
-    "json-lsp", "lua-language-server", "tailwindcss-language-server", "typescript-language-server",
-    "vetur-vls", "vue-language-server", "chrome-debug-adapter", "node-debug2-adapter", "prisma-language-server" },
+  ensure_installed = { "bashls", "cssls", "eslint", "graphql", "html",
+    "jsonls", "luau_lsp", "tailwindcss", "tsserver", "prismals" },
 
   -- Whether servers that are set up (via lspconfig) should be automatically installed if they're not already installed.
   -- This setting has no relation with the `ensure_installed` setting.
@@ -50,7 +49,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local cmp_nvim_lsp_ok, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
 if cmp_nvim_lsp_ok then
-  capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 end
 
 capabilities.textDocument.foldingRange = {

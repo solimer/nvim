@@ -153,7 +153,7 @@ cmp.setup {
 
   -- You should specify your *installed* sources.
   sources = {
-    { name = "copilot", priority = 9, group_index = 2 },
+    { name = "copilot", priority = 9 },
     { name = 'nvim_lsp', priority = 9 },
     { name = 'npm', priority = 9 },
     -- { name = 'cmp_tabnine', priority = 8, max_num_results = 3 },
