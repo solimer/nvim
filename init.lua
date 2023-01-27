@@ -1,13 +1,13 @@
-pcall(require, 'impatient')
+require('config.EcoVim')
 
-require('internal.packer_commands')
 require('utils.globals')
-require('config')
-require('settings')
-require('colorscheme')
-require('keymappings')
-require('autocmds')
-require('functions')
+require('utils.functions')
+
+require('config.options')
+require('config.lazy')
+require('config.keymappings')
+require('config.autocmds')
+
 require('internal.cursorword')
 
 require('lsp.config')

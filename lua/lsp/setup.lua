@@ -2,7 +2,7 @@
 local typescript_ok, typescript = pcall(require, 'typescript')
 local mason_ok, mason = pcall(require, 'mason')
 local mason_lsp_ok, mason_lsp = pcall(require, 'mason-lspconfig')
-local ufo_config = require('plugins.nvim-ufo')
+local ufo_config_handler = require('plugins.nvim-ufo').handler
 
 if not mason_ok or not mason_lsp_ok then
   return
@@ -17,8 +17,8 @@ mason.setup {
 
 mason_lsp.setup {
   -- A list of servers to automatically install if they're not already installed
-  ensure_installed = { "bashls", "cssls", "eslint", "graphql", "html",
-    "jsonls", "luau_lsp", "tailwindcss", "tsserver", "prismals" },
+  ensure_installed = { "bashls", "cssls", "eslint", "graphql", "html", "jsonls", "sumneko_lua", "tailwindcss", "tsserver",
+    "vuels", "volar", "prismals" },
 
   -- Whether servers that are set up (via lspconfig) should be automatically installed if they're not already installed.
   -- This setting has no relation with the `ensure_installed` setting.
@@ -44,13 +44,7 @@ local function on_attach(client, bufnr)
   require("aerial").on_attach(client, bufnr)
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-local cmp_nvim_lsp_ok, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
-if cmp_nvim_lsp_ok then
-  capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
-end
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,
@@ -127,6 +121,6 @@ for _, server in ipairs { "bashls", "emmet_ls", "graphql", "html", "volar", "pri
 end
 
 require('ufo').setup({
-  fold_virt_text_handler = ufo_config.handler,
+  fold_virt_text_handler = ufo_config_handler,
   close_fold_kinds = { "imports" }
 })

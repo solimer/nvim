@@ -1,5 +1,5 @@
 -- Auto sync plugins on save of plugins.lua
--- vim.api.nvim_create_autocmd("BufWritePost", { pattern = "plugins.lua", command = "source <afile> | PackerSync" })
+--vim.api.nvim_create_autocmd("BufWritePost", { pattern = "plugins.lua", command = "source <afile> | PackerSync" })
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost",
   { callback = function() vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 100 }) end })
@@ -71,7 +71,7 @@ if vim.fn.has('nvim-0.8') == 1 then
 
       if vim.bo.filetype == 'GitBlame' then
         local hl_group = "EcovimSecondary"
-        vim.opt_local.winbar = " " .. "%#" .. hl_group .. "#" .. require('icons').git .. "Blame" .. "%*"
+        vim.opt_local.winbar = " " .. "%#" .. hl_group .. "#" .. require('utils.icons').git .. "Blame" .. "%*"
         return
       end
 
