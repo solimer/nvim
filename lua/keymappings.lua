@@ -48,7 +48,7 @@ keymap("n", "<Leader>sk", "<CMD>lua require('telescope.builtin').keymaps()<CR>")
 keymap("n", "<Leader>sb", "<CMD>lua require('telescope.builtin').buffers()<CR>")
 keymap("n", "<Leader>sr", "<CMD>lua require('telescope.builtin').registers()<CR>")
 keymap("n", "<Leader>so", "<CMD>lua require('telescope.builtin').lsp_document_symbols()<CR>")
-keymap("n", "<Leader>sw", "<CMD>lua require('telescope.builtin').lsp_workspace_symbols()<CR>")
+keymap("n", "<Leader>sw", "<CMD>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<CR>")
 
 -- Remove highlights
 keymap("n", "<CR>", ":noh<CR><CR>", silent)
