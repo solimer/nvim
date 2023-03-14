@@ -237,9 +237,9 @@ return {
 	{ "folke/twilight.nvim", config = true, disable = not EcoVim.plugins.zen.enabled },
 	{
 		"ggandor/lightspeed.nvim",
-		config = function()
-			require("plugins.lightspeed")
-		end,
+		-- config = function()
+		-- 	require("plugins.lightspeed")
+		-- end,
 	},
 	{
 		"folke/which-key.nvim",
@@ -422,6 +422,23 @@ return {
 			vim.g.lazygit_floating_window_scaling_factor = 1
 		end,
 	},
+
+	{
+		"Pocco81/auto-save.nvim",
+		config = function()
+			require("auto-save")
+		end,
+	},
+
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		config = function()
+			vim.g.catppuccin_flavour = "mocha"
+		end,
+	},
+
+	{ "kevinhwang91/rnvimr" },
 
 	-- Testing
 	{

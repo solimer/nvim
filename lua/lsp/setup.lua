@@ -39,10 +39,10 @@ local handlers = {
     { virtual_text = EcoVim.lsp.virtual_text }),
 }
 
-local function on_attach(client, bufnr)
-  -- set up buffer keymaps, etc.
-  require("aerial").on_attach(client, bufnr)
-end
+-- local function on_attach(client, bufnr)
+--   -- set up buffer keymaps, etc.
+--   require("aerial").on_attach(client, bufnr)
+-- end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
