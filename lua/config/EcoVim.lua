@@ -1,12 +1,12 @@
 ------------------------------------------------
 --                                            --
---    This is a main configuation file for    --
+--    This is a main configuration file for    --
 --                    EcoVim                  --
 --      Change variables which you need to    --
 --                                            --
 ------------------------------------------------
 
-local icons = require('utils.icons')
+local icons = require("utils.icons")
 
 EcoVim = {
   colorscheme = 'catppuccin',

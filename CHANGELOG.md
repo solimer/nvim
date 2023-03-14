@@ -2,6 +2,63 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/ecosse3/nvim/compare/v3.0.3...v3.1.0) (2023-03-13)
+
+
+### Features
+
+* **cmp:** limit lsp autocompletion types specifically for TypeScript & JavaScript ([87432e5](https://github.com/ecosse3/nvim/commit/87432e5cbe193a19a8936531669c83c4396752b2))
+* **config:** disable hlargs.nvim since semantic tokens support is added to tokyonight colorscheme ([30ec1bc](https://github.com/ecosse3/nvim/commit/30ec1bcdcd6414268a3e5ea56032271adea85895))
+* **lsp:** add cva classRegex & style tailwindcss config ([1936f30](https://github.com/ecosse3/nvim/commit/1936f30dda6787d530fdf500f529b6b055de40b2))
+* **lsp:** add includeCompletionsForModuleExports suggest option to tsserver settings ([a930ba0](https://github.com/ecosse3/nvim/commit/a930ba08b93b3a5d6f154a74cde4426be6c6cd17))
+* **plugins:** add autocmd to notify when conflict is detected in git file ([e98989d](https://github.com/ecosse3/nvim/commit/e98989d2b068c48c333878bd9f51004b7acdc4ca))
+* **plugins:** add chat-gpt.lua config ([5360709](https://github.com/ecosse3/nvim/commit/536070990ab61e0667a1ae7f9d6859d108456c85))
+* **plugins:** add import-cost plugin ([2944316](https://github.com/ecosse3/nvim/commit/2944316130929fa9e237e651d7703923f95da11f))
+* **plugins:** add inlay hints banned notify message ([7a7168b](https://github.com/ecosse3/nvim/commit/7a7168ba4986bbcafae17270939c8be54063bbc7))
+* **plugins:** add mason-null-ls and configure it ([8983c47](https://github.com/ecosse3/nvim/commit/8983c4740ecd75da5a623f6d7d2709a8db2babbc))
+* **plugins:** add nvim-coverage plugin and load on Coverage command ([d5cc8f8](https://github.com/ecosse3/nvim/commit/d5cc8f89ae4e7e048080f7ef8eea82070f1a2582))
+* **plugins:** make printer.nvim load lazily ([6e38313](https://github.com/ecosse3/nvim/commit/6e383137978298562f97e1f06f4ad3330f05b7f9))
+* **plugins:** replace AndrewRedev/splitjoin.vim plugin with Wansmer/treesj which uses treesitter and lua ([92e8857](https://github.com/ecosse3/nvim/commit/92e885773bd2ba0081918b620df3a8566a48aa73))
+* **plugins:** temporarily disable cinnamon.nvim plugin ([e998225](https://github.com/ecosse3/nvim/commit/e998225054b67d8150f05a7fbfebdabe30d76371))
+
+
+### Bug Fixes
+
+* **config:** remove old api from colorscheme config ([9f23046](https://github.com/ecosse3/nvim/commit/9f23046974f15a9a285332b91e2b4b9f3f65bb22))
+* **plugins:** change nvim tree api keymap in lazy.vim plugins keys ([5f83da6](https://github.com/ecosse3/nvim/commit/5f83da60a31eb519ad42693569dba6d956e00877))
+* **plugins:** do not lazy load diffview.nvim ([b737e2e](https://github.com/ecosse3/nvim/commit/b737e2ebed9532d93bb12f7ed492f4b957c7761a))
+* **plugins:** do not lazy load git-conflict.nvim plugin ([ce3a809](https://github.com/ecosse3/nvim/commit/ce3a809f124706ff5b5b5124311bb880742d0430))
+* **plugins:** fix nvim-tree config ([fa4a9be](https://github.com/ecosse3/nvim/commit/fa4a9be456fa6e861544de0ba87bd927219866b7))
+* **plugins:** fix zen config ([2872089](https://github.com/ecosse3/nvim/commit/2872089fea330ff95bcd77c524b460eb984141c2))
+* **plugins:** remove lazyredraw option ([b35768a](https://github.com/ecosse3/nvim/commit/b35768a2f8e6f1c35f227dffa5be597e5598ddff))
+
+### [3.0.3](https://github.com/ecosse3/nvim/compare/v3.0.2...v3.0.3) (2023-02-14)
+
+
+### Bug Fixes
+
+* **lsp:** add "Inlay Hints request failed" to banned messages ([9e9a3a4](https://github.com/ecosse3/nvim/commit/9e9a3a482f88f3159c1be8b785ed43f46f1d1ce3))
+* **plugins:** correctly load printer.nvim ([065a9a3](https://github.com/ecosse3/nvim/commit/065a9a3951be3430dca3413bffdba16f0fae2b86))
+* **plugins:** lazy load ZenMode on command ([964aa3d](https://github.com/ecosse3/nvim/commit/964aa3d4bd518d291a3fb50930c1e3d6f39ac793))
+* replace sumneko_lua (deprecated) with lua_ls ([c133fd7](https://github.com/ecosse3/nvim/commit/c133fd7e76d62bdf3b40d1ebca60e20bc7a4d19c))
+
+### [3.0.2](https://github.com/ecosse3/nvim/compare/v3.0.1...v3.0.2) (2023-01-29)
+
+
+### Bug Fixes
+
+* **plugins:** fix keymaps for dap ([0ac5cd4](https://github.com/ecosse3/nvim/commit/0ac5cd4761ca72c51edbf0d2e6e2692f493fc802))
+* **plugins:** lazy load dap via keys ([131bbbc](https://github.com/ecosse3/nvim/commit/131bbbcdf26a9373216ddc27faba412f777d7b57))
+* **plugins:** lazy load git-worktree via keys ([dea1b42](https://github.com/ecosse3/nvim/commit/dea1b42e195e803540ff152eb3392c7c329b19e0))
+* **plugins:** lazy load template-string ([16d3688](https://github.com/ecosse3/nvim/commit/16d3688aabfb54a2bde2fdc544409bea140d743f))
+* **plugins:** lazy load vim-visual-multi ([157fe44](https://github.com/ecosse3/nvim/commit/157fe4425d45c9f4712e8247646defe1906ca99c))
+* **ui:** fix issue with spamming "No information avialable" via vim.notify ([d4fd970](https://github.com/ecosse3/nvim/commit/d4fd970d8b0970d46bcb54e9c88c4074292d35d6)), closes [#121](https://github.com/ecosse3/nvim/issues/121)
+
+
+### Refactors
+
+* **plugins:** kyazdani42 -> nvim-tree ([c7c199f](https://github.com/ecosse3/nvim/commit/c7c199fd967469d8edf9c062e370a757fe51d4bb))
+
 ### [3.0.1](https://github.com/ecosse3/nvim/compare/v3.0.0...v3.0.1) (2023-01-27)
 
 

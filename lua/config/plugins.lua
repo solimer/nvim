@@ -13,7 +13,7 @@ return {
 
 	{ "nvim-lua/plenary.nvim" },
 	{
-		"kyazdani42/nvim-web-devicons",
+		"nvim-tree/nvim-web-devicons",
 		config = function()
 			require("nvim-web-devicons").setup({ default = true })
 		end,
@@ -40,6 +40,7 @@ return {
 			"RRethy/nvim-treesitter-textsubjects",
 			{
 				"m-demare/hlargs.nvim",
+				disable = true,
 				config = function()
 					require("hlargs").setup({ color = "#F7768E" })
 				end,
@@ -48,6 +49,7 @@ return {
 	},
 
 	-- Navigating (Telescope/Tree/Refactor)
+	{ "nvim-pack/nvim-spectre" },
 	{
 		"nvim-telescope/telescope.nvim",
 		lazy = false,
@@ -61,11 +63,10 @@ return {
 			{ "cljoly/telescope-repo.nvim" },
 		},
 	},
-	{ "nvim-pack/nvim-spectre" },
 	{
-		"kyazdani42/nvim-tree.lua",
+		"nvim-tree/nvim-tree.lua",
 		keys = {
-			{ "<C-e>", "<cmd>lua require'nvim-tree'.toggle()<CR>", desc = "NvimTree" },
+			{ "<C-e>", "<cmd>lua require('nvim-tree.api').tree.toggle()<CR>", desc = "NvimTree" },
 		},
 		config = function()
 			require("plugins.tree")
@@ -91,23 +92,26 @@ return {
 	{
 		"williamboman/mason.nvim",
 		cmd = "Mason",
-		keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
+		keys = {
+			{ "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" },
+		},
 	},
 
 	-- Formatters
 	{
 		"jose-elias-alvarez/null-ls.nvim",
-		event = "BufReadPre",
+		event = "BufNewFile",
 		dependencies = { "mason.nvim" },
+	},
+	{
+		"jay-babu/mason-null-ls.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = {
+			"williamboman/mason.nvim",
+			"jose-elias-alvarez/null-ls.nvim",
+		},
 		config = function()
-			local nls = require("null-ls")
-			nls.setup({
-				sources = {
-					-- nls.builtins.formatting.prettierd,
-					nls.builtins.formatting.stylua,
-					nls.builtins.diagnostics.flake8,
-				},
-			})
+			require("plugins.null-ls")
 		end,
 	},
 
@@ -115,6 +119,9 @@ return {
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
+		config = function()
+			require("plugins.cmp")
+		end,
 		dependencies = {
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-nvim-lsp",
@@ -123,6 +130,7 @@ return {
 			"hrsh7th/cmp-cmdline",
 			"hrsh7th/cmp-calc",
 			"saadparwaiz1/cmp_luasnip",
+			{ "L3MON4D3/LuaSnip", dependencies = "rafamadriz/friendly-snippets" },
 			{ "tzachar/cmp-tabnine", build = "./install.sh" },
 			{
 				"David-Kunz/cmp-npm",
@@ -130,7 +138,6 @@ return {
 					require("plugins.cmp-npm")
 				end,
 			},
-			{ "L3MON4D3/LuaSnip", dependencies = "rafamadriz/friendly-snippets" },
 			{
 				"zbirenbaum/copilot-cmp",
 				disable = not EcoVim.plugins.copilot.enabled,
@@ -139,9 +146,6 @@ return {
 				end,
 			},
 		},
-		config = function()
-			require("plugins.cmp")
-		end,
 	},
 
 	-- LSP Addons
@@ -172,6 +176,13 @@ return {
 	{ "jose-elias-alvarez/typescript.nvim" },
 	{
 		"axelvc/template-string.nvim",
+		event = "InsertEnter",
+		ft = {
+			"javascript",
+			"typescript",
+			"javascriptreact",
+			"typescriptreact",
+		},
 		config = true, -- run require("template-string").setup()
 	},
 	{
@@ -181,10 +192,30 @@ return {
 			require("plugins.inlay-hints")
 		end,
 	},
+	{
+		"barrett-ruth/import-cost.nvim",
+		build = "sh install.sh yarn",
+		ft = {
+			"javascript",
+			"typescript",
+			"javascriptreact",
+			"typescriptreact",
+		},
+		config = true,
+	},
 
 	-- General
 	{ "AndrewRadev/switch.vim", lazy = false },
-	{ "AndrewRadev/splitjoin.vim", lazy = false },
+	-- { "AndrewRadev/splitjoin.vim", lazy = false },
+	{
+		"Wansmer/treesj",
+		lazy = true,
+		cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
+		keys = {
+			{ "gJ", "<cmd>TSJToggle<CR>", desc = "Trigger Toggle Split/Join" },
+		},
+		config = true,
+	},
 	{
 		"numToStr/Comment.nvim",
 		lazy = false,
@@ -207,7 +238,15 @@ return {
 	{ "dhruvasagar/vim-table-mode", ft = { "markdown" } },
 	{
 		"mg979/vim-visual-multi",
-		lazy = false,
+		keys = {
+			"<C-n>",
+			"<C-Up>",
+			"<C-Down>",
+			"<S-Up>",
+			"<S-Down>",
+			"<S-Left>",
+			"<S-Right>",
+		},
 		config = function()
 			vim.g.VM_leader = ";"
 		end,
@@ -229,12 +268,17 @@ return {
 	},
 	{
 		"folke/zen-mode.nvim",
+		cmd = { "ZenMode" },
 		config = function()
 			require("plugins.zen")
 		end,
 		disable = not EcoVim.plugins.zen.enabled,
 	},
-	{ "folke/twilight.nvim", config = true, disable = not EcoVim.plugins.zen.enabled },
+	{
+		"folke/twilight.nvim",
+		config = true,
+		disable = not EcoVim.plugins.zen.enabled,
+	},
 	{
 		"ggandor/lightspeed.nvim",
 		-- config = function()
@@ -258,7 +302,7 @@ return {
 	},
 	{
 		"romgrk/barbar.nvim",
-		dependencies = { "kyazdani42/nvim-web-devicons" },
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		event = "BufAdd",
 		config = function()
 			require("plugins.barbar")
@@ -273,9 +317,18 @@ return {
 			})
 		end,
 		init = function()
-			vim.notify = function(...)
-				vim.notify = require("notify")
-				return vim.notify(...)
+			local banned_messages = {
+				"No information available",
+				"LSP[tsserver] Inlay Hints request failed. Requires TypeScript 4.4+.",
+				"LSP[tsserver] Inlay Hints request failed. File not opened in the editor.",
+			}
+			vim.notify = function(msg, ...)
+				for _, banned in ipairs(banned_messages) do
+					if msg == banned then
+						return
+					end
+				end
+				require("notify")(msg, ...)
 			end
 		end,
 	},
@@ -296,6 +349,7 @@ return {
 	},
 	{
 		"declancm/cinnamon.nvim",
+		disable = true,
 		config = function()
 			require("plugins.cinnamon")
 		end,
@@ -340,6 +394,14 @@ return {
 	},
 	{
 		"rareitems/printer.nvim",
+		event = "BufEnter",
+		ft = {
+			"lua",
+			"javascript",
+			"typescript",
+			"javascriptreact",
+			"typescriptreact",
+		},
 		config = function()
 			require("plugins.printer")
 		end,
@@ -351,13 +413,6 @@ return {
 			require("plugins.indent")
 		end,
 	},
-	--[[ {
-		"echasnovski/mini.indentscope",
-		event = "BufReadPre",
-		config = function()
-			require("mini.indentscope").setup()
-		end,
-	}, ]]
 
 	-- Snippets & Language & Syntax
 	{
@@ -382,9 +437,12 @@ return {
 	{
 		"jackMort/ChatGPT.nvim",
 		config = function()
-			require("chatgpt").setup()
+			require("plugins.chat-gpt")
 		end,
-		cmd = { "ChatGPT", "ChatGPTEditWithInstructions" },
+		cmd = {
+			"ChatGPT",
+			"ChatGPTEditWithInstructions",
+		},
 	},
 
 	-- Git
@@ -398,6 +456,7 @@ return {
 	},
 	{
 		"sindrets/diffview.nvim",
+		lazy = false,
 		event = "BufRead",
 		config = function()
 			require("plugins.git.diffview")
@@ -405,19 +464,29 @@ return {
 	},
 	{
 		"akinsho/git-conflict.nvim",
+		lazy = false,
 		config = function()
 			require("plugins.git.conflict")
 		end,
 	},
 	{
 		"ThePrimeagen/git-worktree.nvim",
+		keys = {
+			"<Leader>gwc",
+			"<Leader>gww",
+		},
 		config = function()
 			require("plugins.git.worktree")
 		end,
 	},
 	{
 		"kdheepak/lazygit.nvim",
-		cmd = { "LazyGit", "LazyGitCurrentFile", "LazyGitFilterCurrentFile", "LazyGitFilter" },
+		cmd = {
+			"LazyGit",
+			"LazyGitCurrentFile",
+			"LazyGitFilterCurrentFile",
+			"LazyGitFilter",
+		},
 		config = function()
 			vim.g.lazygit_floating_window_scaling_factor = 1
 		end,
@@ -453,14 +522,43 @@ return {
 			require("plugins.neotest")
 		end,
 	},
+	{
+		"andythigpen/nvim-coverage",
+		dependencies = "nvim-lua/plenary.nvim",
+		cmd = {
+			"Coverage",
+			"CoverageSummary",
+			"CoverageLoad",
+			"CoverageShow",
+			"CoverageHide",
+			"CoverageToggle",
+			"CoverageClear",
+		},
+		config = function()
+			require("coverage").setup()
+		end,
+	},
 
 	-- DAP
-	{ "theHamsta/nvim-dap-virtual-text" },
-	{ "rcarriga/nvim-dap-ui" },
 	{
 		"mfussenegger/nvim-dap",
 		config = function()
 			require("plugins.dap")
 		end,
+		keys = {
+			"<Leader>da",
+			"<Leader>db",
+			"<Leader>dc",
+			"<Leader>dd",
+			"<Leader>dh",
+			"<Leader>di",
+			"<Leader>do",
+			"<Leader>dO",
+			"<Leader>dt",
+		},
+		dependencies = {
+			"theHamsta/nvim-dap-virtual-text",
+			"rcarriga/nvim-dap-ui",
+		},
 	},
 }
